@@ -10,9 +10,13 @@ public class PlayerController : MonoBehaviour
     public float xSpeed = 4;
     float maxX = 4.37f;
     bool isPlayerMoving;
+    public Scale scaleHead;
+
+    public GameObject headBox;
     // Start is called before the first frame update
     void Start()
     {
+        scaleHead = new Scale();
         isPlayerMoving = true;
     }
 
@@ -50,6 +54,10 @@ public class PlayerController : MonoBehaviour
             isPlayerMoving = false;
 
         }
+    }
+    public void PassedGate(Gatetype gatetype, int gateValue)
+    {
+        headBox.transform.localScale = scaleHead.CalculateHead(gatetype, gateValue,headBox.transform);
     }
 
 }
