@@ -7,7 +7,7 @@ public class Scale
 {
     float maxScale = 4f;
     float minScale = 1.12f;
-    
+    float ObstaceDameValue = 0.5f;
 
 
     public Vector3 CalculateHead(Gatetype gateType, int gateValue, Transform headTransform)
@@ -70,4 +70,22 @@ public class Scale
 
         }
 }
+    public Vector3 DecreasePlayerHeadS(Transform playerTranform)
+    {
+        float newXScale = playerTranform.localScale.x - ObstaceDameValue;
+        float newYScale = playerTranform.localScale.y - ObstaceDameValue;
+        float newZScale = playerTranform.localScale.z - ObstaceDameValue;
+        if (newXScale < minScale) { 
+            newXScale = minScale;
+        }
+        if (newYScale < minScale)
+        {
+                newYScale= minScale;
+        }
+        if (newZScale < minScale)
+        {
+            newZScale = minScale;
+        }
+        return new Vector3(newXScale,newYScale,newZScale);
+    }
 }
