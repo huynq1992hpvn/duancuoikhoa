@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     Renderer headBoxRender;
     private Material currentHeadMat;
     public Material RedWarning;
+    private Animator playerAnim;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -23,10 +24,10 @@ public class PlayerController : MonoBehaviour
     }
     void Start()
     {
-        scaleHead = new Scale();
-        isPlayerMoving = true;
+        scaleHead = new Scale();        
         headBoxRender = headBox.transform.GetChild(0).GetComponent<Renderer>();
         currentHeadMat = headBoxRender.material;
+        playerAnim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -52,6 +53,8 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "FinishLine")
         {
             isPlayerMoving = false;
+            StartIdleAnim();
+            GameManager.Instance.ShowSucessMenu();
 
         }
     }
@@ -74,5 +77,20 @@ public class PlayerController : MonoBehaviour
         headBox.transform.GetChild(0).GetComponent<MeshRenderer>().material = RedWarning;
         yield return new WaitForSeconds(0.2f);
         headBox.transform.GetChild(0).GetComponent<MeshRenderer>().material = currentHeadMat;
+    }
+    public void GameStarted()
+    {
+        isPlayerMoving = true;
+        StartRunAnim();
+    }
+    private void StartRunAnim()
+    {
+        playerAnim.SetBool("IsIdieOn", false);
+        playerAnim.SetBool("IsRunningOn", true);
+    }
+    private void StartIdleAnim()
+    {
+        playerAnim.SetBool("IsIdieOn", true);
+        playerAnim.SetBool("IsRunningOn", false);
     }
 }
