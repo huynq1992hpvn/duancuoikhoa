@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private Material currentHeadMat;
     public Material RedWarning;
     private Animator playerAnim;
+    
     // Start is called before the first frame update
     private void Awake()
     {
@@ -44,7 +45,7 @@ public class PlayerController : MonoBehaviour
         newXvalue = Mathf.Clamp(newXvalue, -maxX, maxX);
         Vector3 PlayerNewPosition = new Vector3(newXvalue, transform.position.y, transform.position.z + playerSpeed * Time.deltaTime);
         transform.position = PlayerNewPosition;      
-
+       
 
     }
     private void OnTriggerEnter(Collider other)
@@ -83,6 +84,12 @@ public class PlayerController : MonoBehaviour
         isPlayerMoving = true;
         StartRunAnim();
     }
+    public void StopPlayerMoving()
+    {
+        isPlayerMoving =false;
+        StartIdleAnim();
+    }
+
     private void StartRunAnim()
     {
         playerAnim.SetBool("IsIdieOn", false);

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Scale
+public class Scale:MonoBehaviour
 {
     float maxScale = 4f;
     float minScale = 1.12f;
     float ObstaceDameValue = 0.5f;
-
+    bool IsPlayerLosing;
 
     public Vector3 CalculateHead(Gatetype gateType, int gateValue, Transform headTransform)
         {
@@ -38,11 +38,15 @@ public class Scale
                 newZScale = headTransform.localScale.z;
                 if (newXScale < minScale)
                 {
-                    newXScale = minScale;
+                    
+                    GameManager.Instance.ShowFailedMenuPannel();
+                  
                 }
                 if (newYScale < minScale)
                 {
-                    newYScale = minScale;
+                    
+                    GameManager.Instance.ShowFailedMenuPannel();
+                    
                 }
                 return new Vector3(newXScale, newYScale, newZScale);
             case Gatetype.shorterType:
@@ -60,7 +64,8 @@ public class Scale
                 newZScale = headTransform.localScale.z + changeSize;
                 if (newZScale < minScale)
                 {
-                    newZScale = minScale;
+                    GameManager.Instance.ShowFailedMenuPannel();
+                    
                 }
                 return new Vector3(newXScale, newYScale, newZScale);
 
@@ -87,5 +92,9 @@ public class Scale
             newZScale = minScale;
         }
         return new Vector3(newXScale,newYScale,newZScale);
+    }
+    public void isPlayerlose()
+    {
+        
     }
 }

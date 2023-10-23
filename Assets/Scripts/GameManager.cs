@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public GameObject StartMenuPanel;
     public GameObject player;
     public GameObject VictoryPanel;
+    public GameObject FailedMenuPanel;
+    public PlayerController PlayerController;
     public void Awake()
     {
         if (Instance != null && Instance != this)
@@ -24,28 +26,40 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     public void StartButtonTapped()
     {
         StartMenuPanel.gameObject.SetActive(false);
-        
+
         PlayerController playerController = player.GetComponent<PlayerController>();
         playerController.GameStarted();
     }
     public void NextLevelButton()
     {
         VictoryPanel.gameObject.SetActive(false);
-        SceneManager.LoadScene("Level1");
+        LevelController.Instance.NextLevel();
+
     }
     public void ShowSucessMenu()
     {
         VictoryPanel.gameObject.SetActive(true);
+    }
+    public void RestartButtonTapped()
+    {
+        SceneManager.LoadScene("Level1");
+
+    }
+    public void ShowFailedMenuPannel()
+    {
+        FailedMenuPanel.SetActive(true);
+        
+
     }
 }
